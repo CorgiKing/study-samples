@@ -12,6 +12,7 @@
         <module>kafka-sample</module>
 		<module>spring-lifecycle-sample</module>
         <module>test</module>
+        <module>mvn-sample</module>
     </modules>
 
     <properties>
