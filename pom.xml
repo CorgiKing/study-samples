@@ -13,6 +13,7 @@
 		<module>spring-lifecycle-sample</module>
         <module>test</module>
         <module>mvn-sample</module>
+        <module>jdk-18-sample</module>
     </modules>
 
     <properties>
