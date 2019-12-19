@@ -14,6 +14,7 @@
         <module>test</module>
         <module>mvn-sample</module>
         <module>jdk-18-sample</module>
+        <module>netty-sample</module>
     </modules>
 
     <properties>
