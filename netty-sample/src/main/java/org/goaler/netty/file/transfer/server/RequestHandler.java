@@ -1,5 +1,8 @@
 package org.goaler.netty.file.transfer.server;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -33,9 +36,11 @@ public class RequestHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("接收：" + msg);
-        if (msg instanceof byte[]){
+        if (msg instanceof ByteBuf){
             System.out.println("接收次数："+ ++i);
-            fo.write((byte[]) msg);
+            ByteBuf byteBuf = (ByteBuf) msg;
+
+            byteBuf.readBytes(fo, byteBuf.readableBytes());
         }
     }
 

@@ -5,14 +5,14 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class FileTransferServerApplication {
 
     public static void main(String[] args) throws Exception{
+
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         //parentGroup处理accept事件，childGroup处理读写事件
         EventLoopGroup parentGroup = new NioEventLoopGroup();
@@ -25,8 +25,6 @@ public class FileTransferServerApplication {
                     public void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new RequestHandler());
-                        pipeline.addLast("decoder", new StringDecoder());
-                        pipeline.addLast("encoder", new StringEncoder());
                     }
                 })
                 .option(ChannelOption.SO_BACKLOG, 128)

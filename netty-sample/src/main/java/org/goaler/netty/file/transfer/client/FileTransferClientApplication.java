@@ -3,6 +3,7 @@ package org.goaler.netty.file.transfer.client;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledDirectByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -10,13 +11,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.FileChannel;
 
 public class FileTransferClientApplication {
@@ -31,8 +33,9 @@ public class FileTransferClientApplication {
                 .handler(new ChannelInitializer<Channel>() {
                     protected void initChannel(Channel channel) throws Exception {
                         ChannelPipeline pipeline = channel.pipeline();
-                        pipeline.addLast("decoder", new StringDecoder());
-                        pipeline.addLast("encoder", new StringEncoder());
+//                        pipeline.addLast(new StringEncoder());
+//                        pipeline.addLast(new StringDecoder());
+                        pipeline.addLast(new ByteArrayEncoder());
                     }
                 });
 
@@ -45,16 +48,21 @@ public class FileTransferClientApplication {
             FileChannel fileInChannel = fis.getChannel();
 
 
-            channel.writeAndFlush("test");
-//            int i = 0;
-//
-//            byte[] buf = new byte[1024];
-//            int len = -1;
-//            while ((len = fis.read(buf)) != -1 ){
-//                System.out.println("发送次数："+ ++i);
-//                channel.write(buf);
-//            }
+
+//            channel.writeAndFlush("test".getBytes());
+
+
+            int i = 0;
+
+            byte[] buf = new byte[1024];
+            int len = -1;
+            while ((len = fis.read(buf)) != -1 ){
+                System.out.println("发送次数："+ ++i);
+                channel.write(buf);
+            }
             System.out.println("发送结束！！！");
+
+            channel.flush();
 
 
         } catch (FileNotFoundException e) {
