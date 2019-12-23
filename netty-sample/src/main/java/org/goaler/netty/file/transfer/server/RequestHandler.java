@@ -5,16 +5,20 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
 import java.io.*;
 
 public class RequestHandler extends ChannelInboundHandlerAdapter {
 
     FileOutputStream fo;
+    RandomAccessFile raf;
 
     {
         try {
             fo = new FileOutputStream("d:/tmp/file.test");
+            raf = new RandomAccessFile("d:/tmp/raf.test", "rw");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -40,7 +44,9 @@ public class RequestHandler extends ChannelInboundHandlerAdapter {
             System.out.println("接收次数："+ ++i);
             ByteBuf byteBuf = (ByteBuf) msg;
 
-            byteBuf.readBytes(fo, byteBuf.readableBytes());
+            System.out.println("长度" + byteBuf.readableBytes());
+            byteBuf.readBytes(raf.getChannel(), 24, byteBuf.readableBytes());
+
         }
     }
 
@@ -48,4 +54,5 @@ public class RequestHandler extends ChannelInboundHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("读取完成，" + ctx.channel().remoteAddress());
     }
+
 }

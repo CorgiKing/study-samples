@@ -4,9 +4,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledDirectByteBuf;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
@@ -35,7 +33,7 @@ public class FileTransferClientApplication {
                         ChannelPipeline pipeline = channel.pipeline();
 //                        pipeline.addLast(new StringEncoder());
 //                        pipeline.addLast(new StringDecoder());
-                        pipeline.addLast(new ByteArrayEncoder());
+//                        pipeline.addLast(new ObjectEncoder());
                     }
                 });
 
@@ -45,21 +43,11 @@ public class FileTransferClientApplication {
 
         try {
             FileInputStream fis = new FileInputStream("D:\\file.txt");
-            FileChannel fileInChannel = fis.getChannel();
 
+            FileRegion fileRegion = new DefaultFileRegion(fis.getChannel(), 0, fis.available());
 
+            channel.writeAndFlush(fileRegion);
 
-//            channel.writeAndFlush("test".getBytes());
-
-
-            int i = 0;
-
-            byte[] buf = new byte[1024];
-            int len = -1;
-            while ((len = fis.read(buf)) != -1 ){
-                System.out.println("发送次数："+ ++i);
-                channel.write(buf);
-            }
             System.out.println("发送结束！！！");
 
             channel.flush();
