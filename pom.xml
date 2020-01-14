@@ -15,6 +15,8 @@
         <module>mvn-sample</module>
         <module>jdk-18-sample</module>
         <module>netty-sample</module>
+        <module>spring-properties-sample</module>
+        <module>druid-sample</module>
     </modules>
 
     <properties>

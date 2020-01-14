@@ -1,0 +1,6 @@
+spring.datasource.test:
+  driver-class-name: org.sqlite.JDBC
+  url: jdbc:sqlite:druid-sample/test.db
+  username: root
+  password: root
+

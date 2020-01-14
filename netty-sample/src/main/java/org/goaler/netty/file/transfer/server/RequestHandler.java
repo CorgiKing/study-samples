@@ -45,7 +45,7 @@ public class RequestHandler extends ChannelInboundHandlerAdapter {
             ByteBuf byteBuf = (ByteBuf) msg;
 
             System.out.println("长度" + byteBuf.readableBytes());
-            byteBuf.readBytes(raf.getChannel(), 24, byteBuf.readableBytes());
+            byteBuf.readBytes(raf.getChannel(), 0, byteBuf.readableBytes());
 
         }
     }
