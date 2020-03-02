@@ -17,6 +17,8 @@
         <module>netty-sample</module>
         <module>spring-properties-sample</module>
         <module>druid-sample</module>
+        <module>spring-boot-starter-sample</module>
+        <module>spring-boot-autoconfigure-sample</module>
     </modules>
 
     <properties>

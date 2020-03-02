@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "goaler.config.enable",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false",
+      "sourceType": "org.goaler.autoconfigure.SampleAutoconfiguration",
+      "description": "是否启用配置"
+    },
+    {
+      "name": "goaler.config.user",
+      "type": "java.lang.String",
+      "sourceType": "org.goaler.autoconfigure.AutoconfigureProperties"
+    },
+    {
+      "name": "goaler.config.pwd",
+      "type": "java.lang.String",
+      "sourceType": "org.goaler.autoconfigure.AutoconfigureProperties",
+    },
+    {
+      "name": "goaler.config.showPwd",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.goaler.autoconfigure.AutoconfigureProperties",
+      "description": "是否展示密码",
+      "defaultValue": false
+    }
+  ]
+}
