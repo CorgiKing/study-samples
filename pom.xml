@@ -10,15 +10,12 @@
     <version>1.0</version>
     <modules>
         <module>kafka-sample</module>
-		<module>spring-lifecycle-sample</module>
         <module>test</module>
         <module>mvn-sample</module>
         <module>jdk-18-sample</module>
         <module>netty-sample</module>
-        <module>spring-properties-sample</module>
         <module>druid-sample</module>
-        <module>spring-boot-starter-sample</module>
-        <module>spring-boot-autoconfigure-sample</module>
+        <module>log-sample</module>
     </modules>
 
     <properties>
